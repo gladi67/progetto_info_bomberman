@@ -10,7 +10,9 @@ void fine::drawnome() {
     sch.controllaDimensione();
     int maxY, maxX;
     getmaxyx(stdscr, maxY, maxX);
-    int w = (maxX < 64) ? maxX - 4 : 60;
+    int w;
+    if (maxX < 64) w = maxX - 4;
+    else w = 60;
     int h = 3;
     int startY;
     int startX = (maxX - w)/2;

@@ -40,7 +40,7 @@ void Menu::drawtitle() {
         wattroff(win, COLOR_PAIR(1));
         wrefresh(win);
     } else {
-        win = newwin(3, 9 + 6, 2, (startX - 12) / 2 - 2);
+        win = newwin(3, 15, 2, (startX - 12) / 2 - 2);
         wattron(win, A_BOLD | COLOR_PAIR(1) | A_UNDERLINE);
         mvwprintw(win, 1, 3, "BOMBERMAN");
         box(win, 0, 0);

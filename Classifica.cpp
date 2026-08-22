@@ -53,7 +53,13 @@ void Classifica::Npunti() {
                 werase(stdscr);
                 refresh();
             }
-            w = (maxX < 64) ? maxX - 4 : 60;
+                if (maxX < 64) {
+                    w = maxX - 4;
+                } else {
+                    w = 60;
+                }
+            if (maxX < 64) w=maxX - 4;
+            else w=60;
             startX = (maxX - w)/2;
             startY = 5;
             wresize(win3, h, w);
