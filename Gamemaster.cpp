@@ -31,7 +31,7 @@ void Gamemaster::responsive() {
     }
 }
 void Gamemaster::startmenu() {
-    schermo.controllaDimensione(20,40);
+    schermo.controllaDimensione(40,20);
     nodelay(stdscr, FALSE);
     menu.setTitle("####      ##     #     #  ####   ####  ####   #     #    #    #     #\n#   #   #    #   ##   ##  #   #  #     #   #  ##   ##   # #   ##    #\n#   #  #      #  # # # #  #   #  #     #   #  # # # #  #   #  # #   #\n####   #      #  #  #  #  ####   ####  ####   #  #  #  #####  #  #  #\n#   #  #      #  #     #  #   #  #     #  #   #     #  #   #  #   # #\n#   #   #    #   #     #  #   #  #     #   #  #     #  #   #  #    ##\n####      ##     #     #  ####   ####  #   #  #     #  #   #  #     #\n");
     menu.drawMenu();
