@@ -11,7 +11,7 @@ void Gamemaster::responsive() {
     getmaxyx(stdscr, h, w);
     if (h != oldH || w != oldW) {
         time_t ora_inizio_blocco = time(NULL);
-        if (!schermo.controllaDimensione()) {
+        if (!schermo.controllaDimensione(40,20)) {
             werase(stdscr);
             touchwin(stdscr);
             refresh();
@@ -31,7 +31,7 @@ void Gamemaster::responsive() {
     }
 }
 void Gamemaster::startmenu() {
-    schermo.controllaDimensione();
+    schermo.controllaDimensione(20,40);
     nodelay(stdscr, FALSE);
     menu.setTitle("####      ##     #     #  ####   ####  ####   #     #    #    #     #\n#   #   #    #   ##   ##  #   #  #     #   #  ##   ##   # #   ##    #\n#   #  #      #  # # # #  #   #  #     #   #  # # # #  #   #  # #   #\n####   #      #  #  #  #  ####   ####  ####   #  #  #  #####  #  #  #\n#   #  #      #  #     #  #   #  #     #  #   #     #  #   #  #   # #\n#   #   #    #   #     #  #   #  #     #   #  #     #  #   #  #    ##\n####      ##     #     #  ####   ####  #   #  #     #  #   #  #     #\n");
     menu.drawMenu();

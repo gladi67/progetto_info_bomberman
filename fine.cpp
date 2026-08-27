@@ -6,13 +6,13 @@ fine::fine() {
     strcpy(end,"###   #   #   # #\n#     ##  #   #   #\n###   # # #   #   #\n#     #  ##   #   #\n###   #   #   # #\0");
 };
 
+//Gestisce l'inserimento del nome
 void fine::drawnome() {
-    sch.controllaDimensione();
+    sch.controllaDimensione(70,35);
     int maxY, maxX;
     getmaxyx(stdscr, maxY, maxX);
-    int w;
+    int w = 60;
     if (maxX < 64) w = maxX - 4;
-    else w = 60;
     int h = 3;
     int startY;
     int startX = (maxX - w)/2;
@@ -35,7 +35,7 @@ void fine::drawnome() {
         switch (ch) {
         case KEY_RESIZE:
             getmaxyx(stdscr, maxY, maxX);
-            if (!sch.controllaDimensione()) {
+            if (!sch.controllaDimensione(70,35)) {
                 clear();
                 refresh();
             }
@@ -87,6 +87,7 @@ void fine::addpunteggio(int t) {
     punti=t;
 }
 
+//Scrive la scritta END
 bool fine::drawend() {
     int x,y;
     getmaxyx(stdscr,y,x);
@@ -110,38 +111,46 @@ bool fine::drawend() {
     }
 };
 
+//Conta il numero di righe del file
 int fine::contaRighe(char t[]) {
-    ifstream file(t);
-    if (!file)
-        return -1;
+    ifstream inputFile;
+    inputFile.open(t);
+    if (!inputFile) return -1;
     int righe = 0;
-    int c;
-    bool vuoto =true;
-    while ((c = file.get()) != EOF) {
-        vuoto=false;
-        if (c == '\n') {
+    char ch;
+    bool vuoto = true;
+    while (!inputFile.eof()) {
+        inputFile.get(ch);
+        if (inputFile.eof()) break;
+        vuoto = false;
+        if (ch == '\n') {
             righe++;
-            vuoto=true;
+            vuoto = true;
         }
     }
-    if (vuoto==false) {
-        righe++;
-    }
+    if (vuoto == false) righe++;
+    inputFile.close();
     return righe;
-};
+}
 
+//Aggiunge il giocatore e il suo punteggio alla classifica
 void fine::addclass(char t[]) {
-    ifstream file(t);
+    ifstream inputFile;
+    inputFile.open(t);
     int n=0;
     int p=contaRighe(t);
     if (p==-1) return;
     while (n<p) {
-        file>>classifica[n].nom>>classifica[n].punt;
+        inputFile>>classifica[n].nom>>classifica[n].punt;
         n++;
     }
-    file.close();
+    inputFile.close();
     bool c=false;
     int tot=p;
+    if (p == 0) {
+        classifica[0].punt = punti;
+        strcpy(classifica[0].nom, nome);
+    }
     while (p>0 && c==false) {
         if (punti<=classifica[p-1].punt) {
             classifica[p].punt=punti;
@@ -157,9 +166,10 @@ void fine::addclass(char t[]) {
         }
         p--;
     }
-    ofstream out(t);
+    ofstream outputFile;
+    outputFile.open(t);
     for (int i=0;i<=tot;i++) {
-        out<<classifica[i].nom<<" "<<classifica[i].punt<<"\n";
+        outputFile<<classifica[i].nom<<" "<<classifica[i].punt<<"\n";
     }
-    out.close();
+    outputFile.close();
 };

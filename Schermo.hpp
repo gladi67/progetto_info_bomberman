@@ -4,8 +4,6 @@
 
 class Schermo {
 public:
-    const int MIN_Y = 20;
-    const int MIN_X = 40;
-    bool controllaDimensione();
+    bool controllaDimensione(int MIN_X, int MIN_Y);
 };
 #endif

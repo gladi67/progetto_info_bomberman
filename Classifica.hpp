@@ -10,7 +10,7 @@ using namespace std;
 class Classifica {
 protected:
     int contaRighe(char t[]);
-    char numpunti[100];
+    char numpunti[60];
     Schermo sch;
 public:
     Classifica();

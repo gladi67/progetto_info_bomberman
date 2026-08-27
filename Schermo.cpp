@@ -1,6 +1,6 @@
 #include "Schermo.hpp"
 
-bool Schermo::controllaDimensione() {
+bool Schermo::controllaDimensione(int MIN_X, int MIN_Y) {
     int curY, curX;
     getmaxyx(stdscr, curY, curX);
     if (curY >= MIN_Y && curX >= MIN_X) {

@@ -3,42 +3,47 @@
 Classifica::Classifica(){
     strcpy(numpunti,"INSERISCI QUANTI PUNTI VISUALIZZARE:");
 }
+
+//Funzione per contare il numero di righe
 int Classifica::contaRighe(char t[]) {
-    ifstream file(t);
-    if (!file)
-        return -1;
+    ifstream inputFile;
+    inputFile.open(t);
+    if (!inputFile) return -1;
     int righe = 0;
-    int c;
+    char ch;
     bool vuoto = true;
-    while ((c = file.get()) != EOF) {
+    while (!inputFile.eof()) {
+        inputFile.get(ch);
+        if (inputFile.eof()) break;
         vuoto = false;
-        if (c == '\n') {
+        if (ch == '\n') {
             righe++;
             vuoto = true;
         }
     }
-    if (vuoto == false) {
-        righe++;
-    }
+    if (vuoto == false) righe++;
+    inputFile.close();
     return righe;
 }
 
+//Crea la barra di controllo per chiedermi quanti punti voglio visualizzare
 void Classifica::Npunti() {
-    if (!sch.controllaDimensione()) {
+    if (!sch.controllaDimensione(40,20)) {
         werase(stdscr);
         refresh();
     }
     int maxY, maxX;
     getmaxyx(stdscr, maxY, maxX);
-    int w = (maxX < 64) ? maxX - 4 : 60;
+    int w = 60;
+    if (maxX<60) w=maxX-4;
     int h = 3;
     int startY = 5;
     int startX = (maxX - w)/2;
     int nm=w-4;
-    if (nm<1) nm=1;
     WINDOW*win3 = newwin(h, w, startY, startX);
     box(win3, 0, 0);
     mvwaddnstr(win3, 1, 2, numpunti, nm);
+    nm=9;
     keypad(win3,true);
     int a=0;
     int ch;
@@ -49,17 +54,12 @@ void Classifica::Npunti() {
         switch (ch) {
         case KEY_RESIZE:
             getmaxyx(stdscr, maxY, maxX);
-            if (!sch.controllaDimensione()) {
+            if (!sch.controllaDimensione(40,20)) {
                 werase(stdscr);
                 refresh();
             }
-                if (maxX < 64) {
-                    w = maxX - 4;
-                } else {
-                    w = 60;
-                }
-            if (maxX < 64) w=maxX - 4;
-            else w=60;
+            w = 60;
+            if (maxX<60) w=maxX-4;
             startX = (maxX - w)/2;
             startY = 5;
             wresize(win3, h, w);
@@ -78,7 +78,6 @@ void Classifica::Npunti() {
             break;
         default:
             if (ch >= 48 && ch <= 57){
-                nm=w-4;
                 if(a<nm) {
                     numpunti[a++]=ch;
                     numpunti[a] = '\0';
@@ -86,8 +85,6 @@ void Classifica::Npunti() {
             }
             break;
     }
-        nm=w-4;
-        if (nm<1) nm=1;
         werase(win3);
         box(win3, 0, 0);
         mvwaddnstr(win3, 1, 2, numpunti, nm);
@@ -102,8 +99,10 @@ void Classifica::Npunti() {
     int PUNTI=atoi(numpunti);
     mostra(PUNTI);
 };
+
+//Mi stampa la classifica e ne gestisce l'uscita e lo scorrimento
 void Classifica::mostra(int PUN) {
-    sch.controllaDimensione();
+    sch.controllaDimensione(80, 40);
     MEVENT event;
     int maxY, maxX;
     int h, w;
@@ -132,7 +131,7 @@ void Classifica::mostra(int PUN) {
         while (cl == true) {
             cha = wgetch(wClass);
             if (cha == KEY_RESIZE) {
-                sch.controllaDimensione();
+                sch.controllaDimensione(40,20);
                 werase(wClass);
                 werase(in);
                 getmaxyx(stdscr, maxY, maxX);
@@ -163,13 +162,13 @@ void Classifica::mostra(int PUN) {
     } else {
         int rig = contaRighe("Classifica.txt");
         if (rig>PUN) rig=PUN;
-        char ch[20];
+        char ch[70];
         int cont = 0;
         werase(wClass);
         box(wClass, 0, 0);
         mvwprintw(wClass, 1, 2, "CLASSIFICA:");
         int r = 2;
-        while (file.getline(ch, 20) && r < h - 2 && r<=rig+1) {
+        while (file.getline(ch, 70) && r < h - 2 && r<=rig+1) {
             r++;
             mvwprintw(wClass, r, 2, "%s", ch);
         }
@@ -178,7 +177,7 @@ void Classifica::mostra(int PUN) {
             cha = wgetch(wClass);
             switch (cha) {
                 case KEY_RESIZE:
-                    sch.controllaDimensione();
+                    sch.controllaDimensione(80,40);
                     getmaxyx(stdscr, maxY, maxX);
                     h = maxY - 5;
                     w = maxX - 16;
@@ -218,7 +217,7 @@ void Classifica::mostra(int PUN) {
                 file.clear();
                 file.seekg(0);
                 for (int i = 0; i < cont; i++)
-                    file.getline(ch, 20);
+                    file.getline(ch, 70);
                 werase(wClass);
                 werase(in);
                 box(wClass, 0, 0);
@@ -226,7 +225,7 @@ void Classifica::mostra(int PUN) {
                 box(in, 0, 0);
                 mvwprintw(in, 1, 2, "<");
                 int r = 2;
-                while (file.getline(ch, 20) && r < h - 2 && r<=rig+1) {
+                while (file.getline(ch, 70) && r < h - 2 && r<=rig+1) {
                     r++;
                     mvwprintw(wClass, r, 2, "%s", ch);
                 }
