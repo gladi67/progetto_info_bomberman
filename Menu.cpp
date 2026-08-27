@@ -7,6 +7,7 @@ Menu::Menu() {
         but[i] = NULL;
 }
 
+//Disegna tutto
 void Menu::drawMenu() {
     werase(stdscr);
     touchwin(stdscr);
@@ -18,6 +19,7 @@ void Menu::drawMenu() {
     refresh();
 }
 
+//Inserisce il titolo nel suo array
 void Menu::setTitle(char t[]) {
     for (int i = 0; i < strlen(t); i++) {
         Titolo[i] = t[i];
@@ -25,6 +27,7 @@ void Menu::setTitle(char t[]) {
     }
 }
 
+//Disegna la scritta Bomberman o in grande o in piccolo
 void Menu::drawtitle() {
     if (win != NULL) {
         delwin(win);
@@ -49,6 +52,7 @@ void Menu::drawtitle() {
     }
 }
 
+//Disegna i Bottoni
 void Menu::drawbutton(char t[], int el) {
     int maxY, maxX;
     int x, y, h, w;
@@ -71,6 +75,7 @@ void Menu::drawbutton(char t[], int el) {
     but[el] = win2;
 }
 
+//Mi da 0, 1 o 2 se clicca su uno dei bottoni, -1 altrimenti
 int Menu::controllaClick(MEVENT& event) {
     for (int i = 0; i < 3; i++) {
         if (but[i] == NULL) continue;

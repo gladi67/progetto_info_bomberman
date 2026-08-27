@@ -102,7 +102,7 @@ void Classifica::Npunti() {
 
 //Mi stampa la classifica e ne gestisce l'uscita e lo scorrimento
 void Classifica::mostra(int PUN) {
-    sch.controllaDimensione(80, 40);
+    sch.controllaDimensione(80, 20);
     MEVENT event;
     int maxY, maxX;
     int h, w;
@@ -177,7 +177,7 @@ void Classifica::mostra(int PUN) {
             cha = wgetch(wClass);
             switch (cha) {
                 case KEY_RESIZE:
-                    sch.controllaDimensione(80,40);
+                    sch.controllaDimensione(80,20);
                     getmaxyx(stdscr, maxY, maxX);
                     h = maxY - 5;
                     w = maxX - 16;

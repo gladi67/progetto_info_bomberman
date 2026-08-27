@@ -8,7 +8,7 @@ fine::fine() {
 
 //Gestisce l'inserimento del nome
 void fine::drawnome() {
-    sch.controllaDimensione(70,35);
+    sch.controllaDimensione(70,20);
     int maxY, maxX;
     getmaxyx(stdscr, maxY, maxX);
     int w = 60;
@@ -35,7 +35,7 @@ void fine::drawnome() {
         switch (ch) {
         case KEY_RESIZE:
             getmaxyx(stdscr, maxY, maxX);
-            if (!sch.controllaDimensione(70,35)) {
+            if (!sch.controllaDimensione(70,20)) {
                 clear();
                 refresh();
             }

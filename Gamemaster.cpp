@@ -6,6 +6,7 @@ Gamemaster::Gamemaster() {
     oldW=0;
 }
 
+//Gestisce il responsive del menu e della partita
 void Gamemaster::responsive() {
     int h, w;
     getmaxyx(stdscr, h, w);
@@ -30,6 +31,8 @@ void Gamemaster::responsive() {
         }
     }
 }
+
+//Fa iniziare il disegno del menu
 void Gamemaster::startmenu() {
     schermo.controllaDimensione(40,20);
     nodelay(stdscr, FALSE);
@@ -54,12 +57,14 @@ void Gamemaster::startmenu() {
     }
 }
 
+//Fa iniziare il disegno della classifica
 void Gamemaster::startclassifica() {
     nodelay(stdscr, FALSE);
     classifica.Npunti();
     stato=STATO_MENU;
 }
 
+//Fa iniziare il disegno della parte finale
 void Gamemaster::startfine() {
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);
@@ -69,6 +74,7 @@ void Gamemaster::startfine() {
     stato=STATO_ESCI;
 }
 
+//Chiude il gioco
 void Gamemaster::closeapp() {
     clear();
     refresh();
@@ -76,6 +82,7 @@ void Gamemaster::closeapp() {
     endwin();
 }
 
+//Disegna e gestisce l'inizio della partita
 void Gamemaster::startpartita() {
     keypad(stdscr, TRUE);
     timeout(100);
@@ -104,6 +111,7 @@ void Gamemaster::startpartita() {
     refresh();
 }
 
+//Fa iniziare la partita
 void Gamemaster::run() {
     getmaxyx(stdscr, oldH, oldW);
     while (stato!=STATO_ESCI) {

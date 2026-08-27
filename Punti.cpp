@@ -7,14 +7,17 @@ punti::punti() {
     punteggio=0;
 };
 
+//Restituisce punteggio
 int punti:: puntif() {
     return punteggio;
 }
 
+//Azzera il punteggio
 void punti::azzera() {
     punteggio=0;
 };
 
+//Disegna la finestra dei punti a seconda della grandezza dello schermo
 void punti::finestra() {
     getmaxyx(stdscr, maxy, maxx);
     int y = 2;
@@ -27,12 +30,14 @@ void punti::finestra() {
     scrivipunti();
 };
 
+//Scrive i punti aggiornati nella finestra
 void punti::scrivipunti() {
     if (win1 == NULL) return;
     mvwprintw(win1, 1, 2, "%06d", punteggio);
     wrefresh(win1);
 };
 
+//Modifica il punteggio attuale
 void punti::modificapunti(int tasto) {
     switch (tasto) {
         case 'q':
