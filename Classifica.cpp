@@ -2,6 +2,7 @@
 
 Classifica::Classifica(){
     strcpy(numpunti,"INSERISCI QUANTI PUNTI VISUALIZZARE:");
+    punti=0;
 }
 
 //Funzione per contare il numero di righe
@@ -248,3 +249,45 @@ void Classifica::mostra(int PUN) {
     refresh();
     file.close();
 }
+
+//Aggiunge il giocatore e il suo punteggio alla classifica
+void Classifica::addclass(char t[], char nome[],int pu) {
+    punti=pu;
+    ifstream inputFile;
+    inputFile.open(t);
+    int n=0;
+    int p=contaRighe(t);
+    if (p==-1) return;
+    while (n<p) {
+        inputFile>>classifica[n].nom>>classifica[n].punt;
+        n++;
+    }
+    inputFile.close();
+    bool c=false;
+    int tot=p;
+    if (p == 0) {
+        classifica[0].punt = punti;
+        strcpy(classifica[0].nom, nome);
+    }
+    while (p>0 && c==false) {
+        if (punti<=classifica[p-1].punt) {
+            classifica[p].punt=punti;
+            strcpy(classifica[p].nom,nome);
+            c=true;
+        }else {
+            classifica[p].punt=classifica[p-1].punt;
+            strcpy(classifica[p].nom,classifica[p-1].nom);
+            if (p==1) {
+                classifica[p-1].punt=punti;
+                strcpy(classifica[p-1].nom,nome);
+            }
+        }
+        p--;
+    }
+    ofstream outputFile;
+    outputFile.open(t);
+    for (int i=0;i<=tot;i++) {
+        outputFile<<classifica[i].nom<<" "<<classifica[i].punt<<"\n";
+    }
+    outputFile.close();
+};

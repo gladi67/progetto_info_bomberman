@@ -7,14 +7,22 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
+struct cl{
+    char nom[100];
+    int punt;
+};
+
 class Classifica {
 protected:
     int contaRighe(char t[]);
     char numpunti[60];
     Schermo sch;
+    cl classifica[200];
+    int punti;
 public:
     Classifica();
     void Npunti();
     void mostra(int PUN);
+    void addclass(char t[],char nome[],int pu);
 };
 #endif

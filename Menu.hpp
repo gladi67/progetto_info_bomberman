@@ -8,8 +8,9 @@ using namespace std;
 #include <cstring>
 
 class Menu {
-private:
+protected:
     char Titolo[500];
+    char Titolo2[500];
     WINDOW* win;
     WINDOW* win2;
     WINDOW* but[3];
@@ -19,7 +20,6 @@ private:
 public:
     Menu();
     void drawMenu();
-    void setTitle(char t[]);
     void drawtitle();
     void drawbutton(char t[], int el);
     void azionebut(int i, MEVENT& event);

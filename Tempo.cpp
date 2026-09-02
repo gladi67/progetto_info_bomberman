@@ -25,7 +25,10 @@ void tempo:: finestra() {
     if (x < 0) x = 0;
     if (win1 == NULL) {
         win1 = newwin(altezza, larghezza, y, x);
-    }else mvwin(win1, y, x);
+    }else {
+        wresize(win1, altezza, larghezza);
+        mvwin(win1, y, x);
+    }
     box(win1, 0, 0);
     scrivitempo();
 }

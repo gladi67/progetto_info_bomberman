@@ -30,7 +30,6 @@ public:
     void startmenu();
     void startclassifica();
     void startfine();
-    void closeapp();
     void startpartita();
     void run();
 };

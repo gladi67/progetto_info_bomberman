@@ -36,7 +36,6 @@ void Gamemaster::responsive() {
 void Gamemaster::startmenu() {
     schermo.controllaDimensione(40,20);
     nodelay(stdscr, FALSE);
-    menu.setTitle("####      ##     #     #  ####   ####  ####   #     #    #    #     #\n#   #   #    #   ##   ##  #   #  #     #   #  ##   ##   # #   ##    #\n#   #  #      #  # # # #  #   #  #     #   #  # # # #  #   #  # #   #\n####   #      #  #  #  #  ####   ####  ####   #  #  #  #####  #  #  #\n#   #  #      #  #     #  #   #  #     #  #   #     #  #   #  #   # #\n#   #   #    #   #     #  #   #  #     #   #  #     #  #   #  #    ##\n####      ##     #     #  ####   ####  #   #  #     #  #   #  #     #\n");
     menu.drawMenu();
     while (stato==STATO_MENU) {
         responsive();
@@ -68,18 +67,9 @@ void Gamemaster::startclassifica() {
 void Gamemaster::startfine() {
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);
-    Fine.addpunteggio(Punti.puntif());
     Fine.drawend();
-    Fine.drawnome();
+    Fine.drawnome(Punti.puntif());
     stato=STATO_ESCI;
-}
-
-//Chiude il gioco
-void Gamemaster::closeapp() {
-    clear();
-    refresh();
-    getch();
-    endwin();
 }
 
 //Disegna e gestisce l'inizio della partita
@@ -132,5 +122,8 @@ void Gamemaster::run() {
                 break;
         }
     }
-    closeapp();
+    clear();
+    refresh();
+    getch();
+    endwin();
 }

@@ -6,25 +6,20 @@ using namespace std;
 #include <ncurses.h>
 #include <cstring>
 #include "Schermo.hpp"
-struct cl{
-    char nom[100];
-    int punt;
-};
+#include "Classifica.hpp"
+
 class fine {
 protected:
     WINDOW*win3;
     WINDOW*win4;
     char nome[100];
-    int punti;
     char end[100];
-    cl classifica[200];
+    char end2[100];
     Schermo sch;
+    Classifica cl;
 public:
     fine();
-    void drawnome();
+    void drawnome(int pu);
     bool drawend();
-    int contaRighe(char t[]);
-    void addclass(char t[]);
-    void addpunteggio(int t);
 };
 #endif

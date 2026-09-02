@@ -5,6 +5,8 @@ Menu::Menu() {
     win2 = NULL;
     for (int i = 0; i < 3; i++)
         but[i] = NULL;
+    strcpy(Titolo, "####      ##     #     #  ####   ####  ####   #     #    #    #     #\n#   #   #    #   ##   ##  #   #  #     #   #  ##   ##   # #   ##    #\n#   #  #      #  # # # #  #   #  #     #   #  # # # #  #   #  # #   #\n####   #      #  #  #  #  ####   ####  ####   #  #  #  #####  #  #  #\n#   #  #      #  #     #  #   #  #     #  #   #     #  #   #  #   # #\n#   #   #    #   #     #  #   #  #     #   #  #     #  #   #  #    ##\n####      ##     #     #  ####   ####  #   #  #     #  #   #  #     #\n");
+    strcpy(Titolo2,"BOMBERMAN");
 }
 
 //Disegna tutto
@@ -17,14 +19,6 @@ void Menu::drawMenu() {
     drawbutton("Classifica", 1);
     drawbutton("Exit", 2);
     refresh();
-}
-
-//Inserisce il titolo nel suo array
-void Menu::setTitle(char t[]) {
-    for (int i = 0; i < strlen(t); i++) {
-        Titolo[i] = t[i];
-        Titolo[strlen(t)] = '\0';
-    }
 }
 
 //Disegna la scritta Bomberman o in grande o in piccolo
@@ -45,7 +39,7 @@ void Menu::drawtitle() {
     } else {
         win = newwin(3, 15, 2, (startX - 12) / 2 - 2);
         wattron(win, A_BOLD | COLOR_PAIR(1) | A_UNDERLINE);
-        mvwprintw(win, 1, 3, "BOMBERMAN");
+        mvwprintw(win, 1, 3, Titolo2);
         box(win, 0, 0);
         wattroff(win, A_BOLD | COLOR_PAIR(1) | A_UNDERLINE);
         wrefresh(win);
